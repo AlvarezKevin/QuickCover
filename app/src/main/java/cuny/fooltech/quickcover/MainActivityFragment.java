@@ -33,6 +33,8 @@ public class MainActivityFragment extends Fragment {
     private EditText mNameEditText;
     private Button mEnterButton;
     private EditText mTagsEditText;
+    private EditText mExistingEditText;
+    private Button mSignInButton;
 
     public MainActivityFragment() {
     }
@@ -45,8 +47,8 @@ public class MainActivityFragment extends Fragment {
         mNameEditText = (EditText) rootView.findViewById(R.id.name_edit_text);
         mEnterButton = (Button) rootView.findViewById(R.id.enter_button);
         mTagsEditText = (EditText) rootView.findViewById(R.id.tags_edit_text);
-
-
+        mExistingEditText = (EditText) rootView.findViewById(R.id.sign_in_name_edit_text);
+        mSignInButton = (Button) rootView.findViewById(R.id.sign_in_button);
 
         mEnterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,14 +56,68 @@ public class MainActivityFragment extends Fragment {
                 mTags = mTagsEditText.getText().toString().trim().split(", ");
                 mUsername = mNameEditText.getText().toString().trim();
 
-                Intent intent = new Intent(getActivity(),CalendarActivity.class);
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
                 intent.putExtra("USERNAME", mUsername);
                 //startActivity(intent);
                 PutNameServer putNameServer = (PutNameServer) new PutNameServer().execute();
             }
         });
+
+        mSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUsername = mExistingEditText.getText().toString().trim();
+                ValidateName validateName = (ValidateName) new ValidateName().execute();
+            }
+        });
+
         return rootView;
     }
+
+    public class ValidateName extends AsyncTask<Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... params) {
+            String username = mUsername;
+            HttpURLConnection urlConnection = null;
+            InputStream inputStream = null;
+
+            try {
+                URL url = new URL("https://devtancrediapp1.mybluemix.net/getdata");
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+                //For logging to make sure
+                inputStream = urlConnection.getInputStream();
+
+                StringBuilder builder = new StringBuilder();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+                reader.close();
+                String jsonStr = builder.toString();
+                Log.v(LOG_TAG, jsonStr);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (inputStream != null) {
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
     public class PutNameServer extends AsyncTask<Void, Void, String> {
         @Override
         protected String doInBackground(Void... params) {
@@ -69,24 +125,25 @@ public class MainActivityFragment extends Fragment {
             String[] tags = mTags;
 
             //Put username first
-            putInfoServer(userName,null);
+            putInfoServer(userName, null);
             //Loop through tags and add them to server
-            for(int i = 0;i < tags.length;i++) {
-                putInfoServer(mUsername,tags[i]);
+            for (int i = 0; i < tags.length; i++) {
+                putInfoServer(mUsername, tags[i]);
             }
             return null;
         }
+
         private void putInfoServer(String username, String tag) {
             HttpURLConnection urlConnection = null;
             InputStream inputStream = null;
 
-            try{
+            try {
                 URL url = null;
 
-                if(tag == null) {
+                if (tag == null) {
                     //First add user only with no tags
                     url = new URL("https://devtancrediapp1.mybluemix.net/postdata?name=" + username);
-                }else {
+                } else {
                     //If parameters include a tag change the url to include it
                     url = new URL("https://devtancrediapp1.mybluemix.net/postdata?" + username + "=" + tag);
                 }
@@ -106,26 +163,27 @@ public class MainActivityFragment extends Fragment {
                 }
                 reader.close();
                 String jsonStr = builder.toString();
-                Log.v(LOG_TAG,jsonStr);
-            }catch (Exception e) {
+                Log.v(LOG_TAG, jsonStr);
+            } catch (Exception e) {
                 e.printStackTrace();
-            }finally {
-                if(urlConnection != null) {
+            } finally {
+                if (urlConnection != null) {
                     urlConnection.disconnect();
                 }
-                if(inputStream != null) {
+                if (inputStream != null) {
                     try {
                         inputStream.close();
-                    }catch (IOException e) {
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }
         }
+
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(getActivity(),"Success",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
         }
     }
 }
