@@ -1,15 +1,25 @@
 package cuny.fooltech.quickcover;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -18,9 +28,11 @@ public class MainActivityFragment extends Fragment {
     private static final String LOG_TAG = MainActivityFragment.class.getSimpleName();
 
     private String mUsername;
+    private String mTags[];
 
     private EditText mNameEditText;
     private Button mEnterButton;
+    private EditText mTagsEditText;
 
     public MainActivityFragment() {
     }
@@ -32,32 +44,88 @@ public class MainActivityFragment extends Fragment {
 
         mNameEditText = (EditText) rootView.findViewById(R.id.name_edit_text);
         mEnterButton = (Button) rootView.findViewById(R.id.enter_button);
+        mTagsEditText = (EditText) rootView.findViewById(R.id.tags_edit_text);
 
-        mNameEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                mEnterButton.setClickable(false);
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mEnterButton.setClickable(true);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         mEnterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mTags = mTagsEditText.getText().toString().trim().split(", ");
                 mUsername = mNameEditText.getText().toString().trim();
+
                 Intent intent = new Intent(getActivity(),CalendarActivity.class);
                 intent.putExtra("USERNAME", mUsername);
+                //startActivity(intent);
+                PutNameServer putNameServer = (PutNameServer) new PutNameServer().execute();
             }
         });
         return rootView;
+    }
+    public class PutNameServer extends AsyncTask<Void, Void, String> {
+        @Override
+        protected String doInBackground(Void... params) {
+            String userName = mUsername;
+            String[] tags = mTags;
+
+            //Put username first
+            putInfoServer(userName,null);
+            //Loop through tags and add them to server
+            for(int i = 0;i < tags.length;i++) {
+                putInfoServer(mUsername,tags[i]);
+            }
+            return null;
+        }
+        private void putInfoServer(String username, String tag) {
+            HttpURLConnection urlConnection = null;
+            InputStream inputStream = null;
+
+            try{
+                URL url = null;
+
+                if(tag == null) {
+                    //First add user only with no tags
+                    url = new URL("https://devtancrediapp1.mybluemix.net/postdata?name=" + username);
+                }else {
+                    //If parameters include a tag change the url to include it
+                    url = new URL("https://devtancrediapp1.mybluemix.net/postdata?" + username + "=" + tag);
+                }
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+                //For logging to make sure
+                inputStream = urlConnection.getInputStream();
+
+                StringBuilder builder = new StringBuilder();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+                reader.close();
+                String jsonStr = builder.toString();
+                Log.v(LOG_TAG,jsonStr);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }finally {
+                if(urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if(inputStream != null) {
+                    try {
+                        inputStream.close();
+                    }catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Toast.makeText(getActivity(),"Success",Toast.LENGTH_SHORT).show();
+        }
     }
 }

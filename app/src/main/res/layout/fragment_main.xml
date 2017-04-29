@@ -4,28 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cuny.fooltech.quickcover.MainActivityFragment"
-    tools:showIn="@layout/activity_main"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    tools:context="cuny.fooltech.quickcover.MainActivityFragment"
+    tools:showIn="@layout/activity_main">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What is your name?"
         android:layout_gravity="center"
-        android:textSize="24sp"
-        />
+        android:text="What is your name?"
+        android:textSize="24sp" />
+
     <EditText
+        android:id="@+id/name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_name"
-        android:id="@+id/name_edit_text"/>
+        android:hint="@string/hint_name" />
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_button"
         android:layout_gravity="center"
-        android:id="@+id/enter_button"/>
+        android:text="@string/tags_hint"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/tags_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/work_tags" />
+
+    <Button
+        android:id="@+id/enter_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/enter_button" />
 </LinearLayout>

@@ -4,4 +4,6 @@
     <string name="title_activity_calendar">wCalendar</string>
     <string name="hint_name">Name</string>
     <string name="enter_button">Enter</string>
+    <string name="work_tags">Work Tags</string>
+    <string name="tags_hint">Enter your work tags, seperated by commas</string>
 </resources>
