@@ -143,12 +143,12 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
-            if(!aBoolean) {
-                Toast.makeText(getActivity(),"No existing user with that name",Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(getActivity(),"Logged in",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(),CalendarActivity.class);
-                intent.putExtra("USERNAME",mUsername);
+            if (!aBoolean) {
+                Toast.makeText(getActivity(), "No existing user with that name", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "Logged in", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                intent.putExtra("USERNAME", mUsername);
                 startActivity(intent);
             }
         }
@@ -160,16 +160,12 @@ public class MainActivityFragment extends Fragment {
             String userName = mUsername;
             String[] tags = mTags;
 
-            //Put username first
-            putInfoServer(userName, null);
-            //Loop through tags and add them to server
-            for (int i = 0; i < tags.length; i++) {
-                putInfoServer(mUsername, tags[i]);
-            }
+            //Put user into database
+            putInfoServer(mUsername, tags);
             return null;
         }
 
-        private void putInfoServer(String username, String tag) {
+        private void putInfoServer(String username, String[] tag) {
             HttpURLConnection urlConnection = null;
             InputStream inputStream = null;
 
@@ -179,9 +175,18 @@ public class MainActivityFragment extends Fragment {
                 if (tag == null) {
                     //First add user only with no tags
                     url = new URL("https://devtancrediapp1.mybluemix.net/postdata?name=" + username);
-                } else {
+                } else if(tag.length == 1){
                     //If parameters include a tag change the url to include it
-                    url = new URL("https://devtancrediapp1.mybluemix.net/postdata?" + username + "=" + tag);
+                    url = new URL("https://devtancrediapp1.mybluemix.net/postdata?name=" +  username + "&tag1=" + tag[0]);
+                } else if(tag.length == 2){
+                    //If parameters include a tag change the url to include it
+                    url = new URL("https://devtancrediapp1.mybluemix.net/postdata?name=" +  username + "&tag1=" + tag[0]
+                            + "&tag2=" + tag[1]);
+                } else if(tag.length > 2){
+                    //If parameters include a tag change the url to include it
+                    url = new URL("https://devtancrediapp1.mybluemix.net/postdata?name=" +  username + "&tag1=" + tag[0]
+                            + "&tag2=" + tag[1]
+                            + "&tag3=" + tag[2]);
                 }
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
