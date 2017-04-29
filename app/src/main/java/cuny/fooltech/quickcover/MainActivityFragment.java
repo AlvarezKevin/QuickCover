@@ -14,6 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,6 +64,7 @@ public class MainActivityFragment extends Fragment {
                 intent.putExtra("USERNAME", mUsername);
                 //startActivity(intent);
                 PutNameServer putNameServer = (PutNameServer) new PutNameServer().execute();
+                startActivity(intent);
             }
         });
 
@@ -74,10 +79,11 @@ public class MainActivityFragment extends Fragment {
         return rootView;
     }
 
-    public class ValidateName extends AsyncTask<Void, Void, String> {
+    public class ValidateName extends AsyncTask<Void, Void, Boolean> {
         @Override
-        protected String doInBackground(Void... params) {
+        protected Boolean doInBackground(Void... params) {
             String username = mUsername;
+            String jsonStr = null;
             HttpURLConnection urlConnection = null;
             InputStream inputStream = null;
 
@@ -98,7 +104,7 @@ public class MainActivityFragment extends Fragment {
                     builder.append(line);
                 }
                 reader.close();
-                String jsonStr = builder.toString();
+                jsonStr = builder.toString();
                 Log.v(LOG_TAG, jsonStr);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -114,7 +120,37 @@ public class MainActivityFragment extends Fragment {
                     }
                 }
             }
-            return null;
+            try {
+                JSONArray jsonArray = new JSONArray(jsonStr);
+                String name = null;
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    try {
+                        name = jsonObject.getString("name");
+                        if (name.equals(username)) {
+                            return true;
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+            } catch (JSONException e) {
+                Log.v(LOG_TAG, "Error getting json");
+            }
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if(!aBoolean) {
+                Toast.makeText(getActivity(),"No existing user with that name",Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(getActivity(),"Logged in",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(),CalendarActivity.class);
+                intent.putExtra("USERNAME",mUsername);
+                startActivity(intent);
+            }
         }
     }
 
