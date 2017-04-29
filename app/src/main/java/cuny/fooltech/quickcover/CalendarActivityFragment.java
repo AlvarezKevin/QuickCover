@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
@@ -47,8 +48,40 @@ public class CalendarActivityFragment extends Fragment {
         mWeekView.setMonthChangeListener(new MonthLoader.MonthChangeListener() {
             @Override
             public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-                return null;
+
+                List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+
+
+                Calendar startTime = Calendar.getInstance();
+                startTime.set(Calendar.HOUR_OF_DAY, 3);
+                startTime.set(Calendar.MINUTE, 0);
+                startTime.set(Calendar.MONTH, newMonth - 1);
+                startTime.set(Calendar.YEAR, newYear);
+                Calendar endTime = (Calendar) startTime.clone();
+                endTime.add(Calendar.HOUR, 5);
+                endTime.set(Calendar.MONTH, newMonth - 1);
+                WeekViewEvent event = new WeekViewEvent(1, "Work", startTime, endTime);
+                event.setColor(getResources().getColor(R.color.colorPrimary));
+                events.add(event);
+
+                startTime = Calendar.getInstance();
+                startTime.set(Calendar.HOUR_OF_DAY, 3);
+                startTime.set(Calendar.MINUTE, 30);
+                startTime.set(Calendar.MONTH, newMonth-1);
+                startTime.set(Calendar.YEAR, newYear);
+                endTime = (Calendar) startTime.clone();
+                endTime.set(Calendar.HOUR_OF_DAY, 4);
+                endTime.set(Calendar.MINUTE, 30);
+                endTime.set(Calendar.MONTH, newMonth-1);
+                event = new WeekViewEvent(10, "Free", startTime, endTime);
+                event.setColor(getResources().getColor(R.color.colorPrimary));
+                events.add(event);
+
+                return events;
+
             }
+
+
 
         });
             return rootView;
