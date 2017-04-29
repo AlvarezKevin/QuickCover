@@ -1,5 +1,6 @@
 package cuny.fooltech.quickcover;
 
+import android.content.Intent;
 import android.graphics.RectF;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class CalendarActivityFragment extends Fragment {
         mWeekView.setOnEventClickListener(new WeekView.EventClickListener() {
             @Override
             public void onEventClick(WeekViewEvent event, RectF eventRect) {
-
+                Intent intent = new Intent(getActivity(),RequestActivity.class);
             }
         });
 
