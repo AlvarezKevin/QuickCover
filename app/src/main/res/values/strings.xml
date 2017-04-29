@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Quick Cover</string>
     <string name="action_settings">Settings</string>
-    <string name="hint_name">Name</string>
-    <string name="enter_button">Enter</string>
+    <string name="title_activity_calendar">wCalendar</string>
 </resources>
