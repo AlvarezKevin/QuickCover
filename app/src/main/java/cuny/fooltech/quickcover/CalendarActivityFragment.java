@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.RectF;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,16 +39,26 @@ public class CalendarActivityFragment extends Fragment {
 
         int startingHour[] = new int[4];
 
-        startingHour[0]= 7;
-        startingHour[1]= 6;
-        startingHour[2]= 3;
-        startingHour[3]= 3;
+        startingHour[0]= 8;
+        startingHour[1]= 10;
+        startingHour[2]= 8;
+        startingHour[3]= 10;
 
         int endHour[] = new int[4];
-        endHour[0]= 6;
-        endHour[1]= 10;
-        endHour[2]= 11;
-        endHour[3]= 6;
+        endHour[0]= 17;
+        endHour[1]= 20;
+        endHour[2]= 17;
+        endHour[3]= 20;
+
+        int totalHours[] = new int[4];
+
+        for(int count=0; count< endHour.length;count++){
+            totalHours[count]= (12- startingHour[count])+ (endHour[count] -12);
+            Log.v(LOG_TAG,Integer.toString(totalHours[count]));
+        }
+
+
+
 
         Event event1 = new Event("John","Monday",startingHour[0],endHour[0]);
         Event event2 = new Event("John","Tuesday",  startingHour[1],endHour[1]);
