@@ -1,10 +1,12 @@
 package cuny.fooltech.quickcover;
 
+import java.io.Serializable;
+
 /**
  * Created by kevin on 4/29/2017.
  */
 
-public class Event {
+public class Event implements Serializable{
     private String name;
     private String dayOfWeek;
     private int startTime;

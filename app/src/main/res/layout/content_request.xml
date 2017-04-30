@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="cuny.fooltech.quickcover.RequestActivity"
     tools:showIn="@layout/activity_request">
 
+
+    <TextView
+        android:id="@+id/day_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Monday"
+        android:layout_gravity="center"
+        android:textSize="22sp"
+        android:padding="36dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/hours_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="09:00am - 09:00pm"
+        android:layout_gravity="center"
+        android:textSize="22sp"
+        android:padding="24dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/rate_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="$11 per hour"
+        android:layout_gravity="center"
+        android:padding="24dp"
+        android:textSize="22sp"
+        android:textStyle="bold"/>
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/request_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Can't Make It"
-        android:textColor="#fff"
         android:background="#ff0000"
-        tools:layout_editor_absoluteX="147dp"
-        tools:layout_editor_absoluteY="393dp"
-        />
+        android:text="@string/appeal_this_shift"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:padding="2dp"/>
 
-    <EditText
-        android:id="@+id/Date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        android:text="02/14/2017"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="29dp" />
-
-    <EditText
-        android:id="@+id/Time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        android:text="09:00am - 09:00pm"
-        tools:layout_editor_absoluteX="84dp"
-        tools:layout_editor_absoluteY="98dp" />
-
-    <EditText
-        android:id="@+id/rate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:text="$11 per hour"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="172dp" />
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

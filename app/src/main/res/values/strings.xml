@@ -10,7 +10,8 @@
     <string name="existing_user">Existing User?</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
-    <string name="title_activity_request">RequestActivity</string>
+    <string name="title_activity_request">More Info</string>
     <string name="cancel">O</string>
     <string name="button_o">O</string>
+    <string name="appeal_this_shift">Appeal this shift</string>
 </resources>

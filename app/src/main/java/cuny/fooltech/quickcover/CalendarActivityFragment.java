@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -60,6 +63,15 @@ public class CalendarActivityFragment extends Fragment {
         mListView = (ListView)rootView.findViewById(R.id.schedule_listview);
         mAdapter = new ScheduleAdapter(getActivity(),events);
         mListView.setAdapter(mAdapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(),RequestActivity.class);
+                intent.putExtra("EVENT", (Serializable) parent.getItemAtPosition(position));
+                getActivity().startActivity(intent);
+            }
+        });
 
         return rootView;
 
