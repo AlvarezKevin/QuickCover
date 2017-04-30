@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:weightSum="1"
-    android:id="@+id/list_linear_layout">
+    android:id="@+id/list_linear_layout"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +23,9 @@
             android:fontFamily="sans-serif-condensed"
             android:textSize="24sp"
             android:textStyle="bold"
-            tools:text="SU" />
+            tools:text="SU"
+            android:textColor="#000000"
+            />
 
         <TextView
             android:id="@+id/time_list"
@@ -31,7 +34,8 @@
             android:layout_gravity="center"
             android:layout_weight="2"
             android:textSize="24sp"
-            tools:text="3:00 - 6:00" />
+            tools:text="3:00 - 6:00"
+            android:textColor="#000000"/>
     </LinearLayout>
 
     <TextView
@@ -40,6 +44,7 @@
         android:layout_height="wrap_content"
         android:textSize="22sp"
         tools:text="Waiter"
-        android:fontFamily="sans-serif-condensed" />
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#000000"/>
 
 </LinearLayout>

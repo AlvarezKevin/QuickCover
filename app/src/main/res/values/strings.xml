@@ -16,4 +16,5 @@
     <string name="appeal_this_shift">Appeal this shift</string>
     <string name="title_activity_boss">BossActivity</string>
     <string name="no_schedule">No schedule yet :(</string>
+    <string name="title_activity_appeals">Appeals</string>
 </resources>

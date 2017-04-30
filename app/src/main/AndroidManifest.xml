@@ -45,6 +45,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cuny.fooltech.quickcover.MainActivity" />
         </activity>
+        <activity
+            android:name=".AppealsActivity"
+            android:label="@string/title_activity_appeals"
+            android:parentActivityName=".CalendarActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cuny.fooltech.quickcover.CalendarActivity" />
+        </activity>
     </application>
 
 </manifest>

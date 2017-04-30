@@ -25,14 +25,50 @@ public class RequestActivity extends AppCompatActivity {
 
         Event event = (Event) getIntent().getSerializableExtra("EVENT");
         int day = event.getDay();
-        String hours = event.getStartTime() + ":00 - " + event.getEndTime() + ":00";
+        int month = event.getMonth();
+        String hours = event.getStartTime() + " - " + event.getEndTime();
         String pay = "$11.00";
 
-        mDayTV.setText(day);
-        mHoursTV.setText(hours);
+        switch (month) {
+            case 1:
+                mDayTV.setText("January " + day);
+                break;
+            case 2:
+                mDayTV.setText("February " + day);
+                break;
+            case 3:
+                mDayTV.setText("March " + day);
+                break;
+            case 4:
+                mDayTV.setText("April " + day);
+                break;
+            case 5:
+                mDayTV.setText("May " + day);
+                break;
+            case 6:
+                mDayTV.setText("June " + day);
+                break;
+            case 7:
+                mDayTV.setText("July " + day);
+                break;
+            case 8:
+                mDayTV.setText("August " + day);
+                break;
+            case 9:
+                mDayTV.setText("September " + day);
+                break;
+            case 10:
+                mDayTV.setText("October " + day);
+                break;
+            case 11:
+                mDayTV.setText("November " + day);
+                break;
+            case 12:
+                mDayTV.setText("December " + day);
+                break;
+        }
+        mHoursTV.setText("Hours: " + hours);
         mPayTV.setText(pay);
-
-
     }
 
 }

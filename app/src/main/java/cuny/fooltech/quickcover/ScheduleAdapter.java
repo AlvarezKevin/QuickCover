@@ -48,10 +48,48 @@ public class ScheduleAdapter extends ArrayAdapter<Event> {
         TextView positionTV = (TextView) convertView.findViewById(R.id.position_list);
         LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.list_linear_layout);
 
-        dayTV.setText(month + " - " + day);
+
         timeTV.setText(event.getStartTime() + " - " + event.getEndTime());
         positionTV.setText(eventPosition);
 
+        switch (month) {
+            case 1:
+                dayTV.setText("January " + day);
+                break;
+            case 2:
+                dayTV.setText("February " + day);
+                break;
+            case 3:
+                dayTV.setText("March " + day);
+                break;
+            case 4:
+                dayTV.setText("April " + day);
+                break;
+            case 5:
+                dayTV.setText("May " + day);
+                break;
+            case 6:
+                dayTV.setText("June " + day);
+                break;
+            case 7:
+                dayTV.setText("July " + day);
+                break;
+            case 8:
+                dayTV.setText("August " + day);
+                break;
+            case 9:
+                dayTV.setText("September " + day);
+                break;
+            case 10:
+                dayTV.setText("October " + day);
+                break;
+            case 11:
+                dayTV.setText("November " + day);
+                break;
+            case 12:
+                dayTV.setText("December " + day);
+                break;
+        }
         if (needCover) {
             linearLayout.setBackgroundColor(getContext().getResources().getColor(R.color.red));
         }
