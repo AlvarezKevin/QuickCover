@@ -20,6 +20,8 @@ public class RequestActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+
         mDayTV = (TextView)findViewById(R.id.day_request);
         mHoursTV = (TextView)findViewById(R.id.hours_request);
         mPayTV = (TextView)findViewById(R.id.rate_request);

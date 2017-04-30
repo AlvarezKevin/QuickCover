@@ -24,6 +24,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -88,7 +91,7 @@ public class MainActivityFragment extends Fragment {
             InputStream inputStream = null;
 
             try {
-                URL url = new URL("https://devtancrediapp1.mybluemix.net/getdata");
+                URL url = new URL("http://");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
@@ -170,27 +173,30 @@ public class MainActivityFragment extends Fragment {
             InputStream inputStream = null;
 
             try {
-                URL url = null;
+                URL url = new URL("http://quickcover.esy.es/create_product.php");
 
-                if (tag == null) {
-                    //First add user only with no tags
-                    url = new URL("https://devtancrediapp1.mybluemix.net/postusers?name=" + username);
-                } else if(tag.length == 1){
-                    //If parameters include a tag change the url to include it
-                    url = new URL("https://devtancrediapp1.mybluemix.net/postusers?_id=users&name=" +  username + "&tag1=" + tag[0]);
-                } else if(tag.length == 2){
-                    //If parameters include a tag change the url to include it
-                    url = new URL("https://devtancrediapp1.mybluemix.net/postusers?_id=users&name=" +  username + "&tag1=" + tag[0]
-                            + "&tag2=" + tag[1]);
-                } else if(tag.length > 2){
-                    //If parameters include a tag change the url to include it
-                    url = new URL("https://devtancrediapp1.mybluemix.net/postusers?_id=users&name=" +  username + "&tag1=" + tag[0]
-                            + "&tag2=" + tag[1]
-                            + "&tag3=" + tag[2]);
+                Map<String,Object> params = new LinkedHashMap<>();
+                params.put("name", username);
+                params.put("var1", tag[0]);
+                params.put("var2", tag[1]);
+
+                StringBuilder postData = new StringBuilder();
+                for (Map.Entry<String,Object> param : params.entrySet()) {
+                    if (postData.length() != 0) postData.append('&');
+                    postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                    postData.append('=');
+                    postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
                 }
+                byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
                 urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                urlConnection.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+                urlConnection.setDoOutput(true);
                 urlConnection.connect();
+                urlConnection.getOutputStream().write(postDataBytes);
+
                 //For logging to make sure
                 inputStream = urlConnection.getInputStream();
 
