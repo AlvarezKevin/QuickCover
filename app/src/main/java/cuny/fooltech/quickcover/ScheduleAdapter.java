@@ -1,20 +1,18 @@
 package cuny.fooltech.quickcover;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,8 +20,13 @@ import java.util.List;
  */
 
 public class ScheduleAdapter extends ArrayAdapter<Event> {
-    public ScheduleAdapter(@NonNull Context context, @NonNull List<Event> objects) {
+
+    ArrayList<Event> events = new ArrayList<>();
+
+    public ScheduleAdapter(@NonNull Context context, @NonNull ArrayList<Event> objects) {
         super(context, 0, objects);
+        events = objects;
+
     }
 
     @NonNull
@@ -32,14 +35,26 @@ public class ScheduleAdapter extends ArrayAdapter<Event> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_list_item, parent, false);
         }
-        Event event = getItem(position);
+        Event event = events.get(position);
+
+        String eventPosition = event.getPosition();
+        int day = event.getDay();
+        int month = event.getMonth();
+        boolean needCover = event.isNeedCover();
+        Log.v("ADAPTER", day + "+ + " + month);
 
         TextView timeTV = (TextView) convertView.findViewById(R.id.time_list);
         TextView dayTV = (TextView) convertView.findViewById(R.id.day_list);
+        TextView positionTV = (TextView) convertView.findViewById(R.id.position_list);
+        LinearLayout linearLayout = (LinearLayout) convertView.findViewById(R.id.list_linear_layout);
 
+        dayTV.setText(month + " - " + day);
+        timeTV.setText(event.getStartTime() + " - " + event.getEndTime());
+        positionTV.setText(eventPosition);
 
-        timeTV.setText(event.getStartTime() + ":00 - " + event.getEndTime() + ":00");
-        dayTV.setText(event.getDayOfWeek().substring(0, 2).toUpperCase());
+        if (needCover) {
+            linearLayout.setBackgroundColor(getContext().getResources().getColor(R.color.red));
+        }
         return convertView;
     }
 }

@@ -4,7 +4,7 @@
     <string name="title_activity_calendar">Calendar</string>
     <string name="hint_name">What is your name?</string>
     <string name="enter_button">Enter</string>
-    <string name="work_tags">Your work tags</string>
+    <string name="work_tags">What is your position</string>
     <string name="tags_hint">Enter your work tags, separated by commas</string>
     <string name="new_user">New User?</string>
     <string name="existing_user">Existing User?</string>
@@ -14,4 +14,6 @@
     <string name="cancel">O</string>
     <string name="button_o">O</string>
     <string name="appeal_this_shift">Appeal this shift</string>
+    <string name="title_activity_boss">BossActivity</string>
+    <string name="no_schedule">No schedule yet :(</string>
 </resources>

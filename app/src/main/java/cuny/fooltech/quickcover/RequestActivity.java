@@ -1,11 +1,8 @@
 package cuny.fooltech.quickcover;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 public class RequestActivity extends AppCompatActivity {
@@ -27,7 +24,7 @@ public class RequestActivity extends AppCompatActivity {
         mPayTV = (TextView)findViewById(R.id.rate_request);
 
         Event event = (Event) getIntent().getSerializableExtra("EVENT");
-        String day = event.getDayOfWeek();
+        int day = event.getDay();
         String hours = event.getStartTime() + ":00 - " + event.getEndTime() + ":00";
         String pay = "$11.00";
 

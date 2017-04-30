@@ -3,28 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:weightSum="1"
+    android:id="@+id/list_linear_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/day_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="SU" />
+
+        <TextView
+            android:id="@+id/time_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:textSize="24sp"
+            tools:text="3:00 - 6:00" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/day_list"
-        android:layout_width="0dp"
+        android:id="@+id/position_list"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="0.5"
-        android:fontFamily="sans-serif-condensed"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        tools:text="SU" />
-
-    <TextView
-        android:id="@+id/time_list"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="2"
-        android:textSize="24sp"
-        tools:text="3:00 - 6:00" />
-
+        android:textSize="22sp"
+        tools:text="Waiter"
+        android:fontFamily="sans-serif-condensed" />
 
 </LinearLayout>

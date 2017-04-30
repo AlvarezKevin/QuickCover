@@ -35,7 +35,7 @@ public class MainActivityFragment extends Fragment {
     private static final String LOG_TAG = MainActivityFragment.class.getSimpleName();
 
     private String mUsername;
-    private String mTags[];
+    private String mTags;
 
     private EditText mNameEditText;
     private Button mEnterButton;
@@ -60,7 +60,7 @@ public class MainActivityFragment extends Fragment {
         mEnterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mTags = mTagsEditText.getText().toString().trim().split(", ");
+                mTags = mTagsEditText.getText().toString().trim();
                 mUsername = mNameEditText.getText().toString().trim();
 
                 Intent intent = new Intent(getActivity(), CalendarActivity.class);
@@ -91,7 +91,7 @@ public class MainActivityFragment extends Fragment {
             InputStream inputStream = null;
 
             try {
-                URL url = new URL("http://");
+                URL url = new URL("http://quickcover.esy.es/get_all_users.php");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
@@ -103,6 +103,8 @@ public class MainActivityFragment extends Fragment {
                 BufferedReader reader = new BufferedReader(inputStreamReader);
 
                 String line;
+                reader.readLine();
+                reader.readLine();
                 while ((line = reader.readLine()) != null) {
                     builder.append(line);
                 }
@@ -124,17 +126,16 @@ public class MainActivityFragment extends Fragment {
                 }
             }
             try {
-                JSONArray jsonArray = new JSONArray(jsonStr);
+                JSONObject jsonObject = new JSONObject(jsonStr);
+                JSONArray jsonArray = jsonObject.getJSONArray("users");
+                Log.v(LOG_TAG,Integer.toString(jsonArray.length()));
                 String name = null;
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    try {
-                        name = jsonObject.getString("name");
-                        if (name.equals(username)) {
-                            return true;
-                        }
-                    } catch (Exception e) {
-
+                    JSONObject usersObject = jsonArray.getJSONObject(i);
+                    name = usersObject.getString("name");
+                    Log.v(LOG_TAG,name);
+                    if (name.equals(username)) {
+                        return true;
                     }
                 }
             } catch (JSONException e) {
@@ -161,14 +162,14 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected String doInBackground(Void... params) {
             String userName = mUsername;
-            String[] tags = mTags;
+            String tag = mTags;
 
             //Put user into database
-            putInfoServer(mUsername, tags);
+            putInfoServer(mUsername, tag);
             return null;
         }
 
-        private void putInfoServer(String username, String[] tag) {
+        private void putInfoServer(String username, String tag) {
             HttpURLConnection urlConnection = null;
             InputStream inputStream = null;
 
@@ -177,12 +178,12 @@ public class MainActivityFragment extends Fragment {
 
                 Map<String,Object> params = new LinkedHashMap<>();
                 params.put("name", username);
-                params.put("position", tag[0]);
-                params.put("day",29 );
-                params.put("month", 4);
-                params.put("year_",2017);
-                params.put("start_time",4);
-                params.put("end_time",7);
+                params.put("position", tag);
+                params.put("day",null);
+                params.put("month", null);
+                params.put("year_",null);
+                params.put("start_time",null);
+                params.put("end_time",null);
                 params.put("need_cover",false);
 
                 StringBuilder postData = new StringBuilder();
@@ -235,7 +236,7 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Logged in", Toast.LENGTH_SHORT).show();
         }
     }
 }
