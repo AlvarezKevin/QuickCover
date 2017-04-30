@@ -7,17 +7,17 @@ package cuny.fooltech.quickcover;
 public class Event {
     private String name;
     private String dayOfWeek;
-    private String startTime;
-    private String endTime;
+    private int startTime;
+    private int endTime;
 
-    public Event(String name, String dayOfWeek, String startTime, String endTime) {
+    public Event(String name, String dayOfWeek, int startTime, int endTime) {
         this.name = name;
         this.dayOfWeek = dayOfWeek;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public String getName() { 
+    public String getName() {
         return name;
     }
 
@@ -33,19 +33,19 @@ public class Event {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public String getStartTime() {
+    public int getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(int startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public int getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(int endTime) {
         this.endTime = endTime;
     }
 }

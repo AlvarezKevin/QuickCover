@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,10 +34,10 @@ public class CalendarActivityFragment extends Fragment {
 
         getActivity().setTitle("My Schedule");
 
-        Event event1 = new Event("John","Monday","3:00","6:00");
-        Event event2 = new Event("John","Tuesday","3:00","6:00");
-        Event event3 = new Event("John","Wednesday","3:00","6:00");
-        Event event4 = new Event("John","Thursday","3:00","6:00");
+        Event event1 = new Event("John","Monday",3,6);
+        Event event2 = new Event("John","Tuesday",3,6);
+        Event event3 = new Event("John","Wednesday",3,6);
+        Event event4 = new Event("John","Thursday",3,6);
 
         ArrayList<Event> events = new ArrayList<>();
         events.add(event1);
@@ -47,6 +48,14 @@ public class CalendarActivityFragment extends Fragment {
         mListView = (ListView)rootView.findViewById(R.id.schedule_listview);
         mAdapter = new ScheduleAdapter(getActivity(),events);
         mListView.setAdapter(mAdapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(),RequestActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return rootView;
 

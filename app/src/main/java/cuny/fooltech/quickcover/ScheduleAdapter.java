@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -35,11 +36,10 @@ public class ScheduleAdapter extends ArrayAdapter<Event> {
 
         TextView timeTV = (TextView) convertView.findViewById(R.id.time_list);
         TextView dayTV = (TextView) convertView.findViewById(R.id.day_list);
-        FloatingActionButton button = (FloatingActionButton) convertView.findViewById(R.id.button_list);
 
 
-        timeTV.setText(event.getStartTime() + "- " + event.getEndTime());
-        dayTV.setText(event.getDayOfWeek().substring(0,2).toUpperCase());
+        timeTV.setText(event.getStartTime() + ":00 - " + event.getEndTime() + ":00");
+        dayTV.setText(event.getDayOfWeek().substring(0, 2).toUpperCase());
         return convertView;
     }
 }
