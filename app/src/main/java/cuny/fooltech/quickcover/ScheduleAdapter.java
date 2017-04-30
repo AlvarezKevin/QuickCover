@@ -38,7 +38,7 @@ public class ScheduleAdapter extends ArrayAdapter<Event> {
         FloatingActionButton button = (FloatingActionButton) convertView.findViewById(R.id.button_list);
 
 
-        timeTV.setText(event.getStartTime() + "- " + event.getEndTime());
+        timeTV.setText(event.getStartTime() + ":00 - " + event.getEndTime()  + ":00  ");
         dayTV.setText(event.getDayOfWeek().substring(0,2).toUpperCase());
         return convertView;
     }
