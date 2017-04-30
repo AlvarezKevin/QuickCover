@@ -178,7 +178,8 @@ public class RequestActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(RequestActivity.this,"Request sent!",Toast.LENGTH_SHORT);
+            Toast.makeText(RequestActivity.this,"Request sent!",Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
