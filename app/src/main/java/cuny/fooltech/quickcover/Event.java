@@ -17,7 +17,7 @@ public class Event {
         this.endTime = endTime;
     }
 
-    public String getName() { 
+    public String getName() {
         return name;
     }
 
