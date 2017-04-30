@@ -33,10 +33,23 @@ public class CalendarActivityFragment extends Fragment {
 
         getActivity().setTitle("My Schedule");
 
-        Event event1 = new Event("John","Monday","3:00","6:00");
-        Event event2 = new Event("John","Tuesday","3:00","6:00");
-        Event event3 = new Event("John","Wednesday","3:00","6:00");
-        Event event4 = new Event("John","Thursday","3:00","6:00");
+        int startingHour[] = new int[4];
+
+        startingHour[0]= 3;
+        startingHour[1]= 6;
+        startingHour[2]= 3;
+        startingHour[3]= 3;
+
+        int endHour[] = new int[4];
+        endHour[0]= 6;
+        endHour[1]= 10;
+        endHour[2]= 11;
+        endHour[3]= 6;
+
+        Event event1 = new Event("John","Monday",startingHour[0],endHour[0]);
+        Event event2 = new Event("John","Tuesday",  startingHour[1],endHour[1]);
+        Event event3 = new Event("John","Wednesday",startingHour[2], endHour[2]);
+        Event event4 = new Event("John","Thursday", startingHour[3],  endHour[3]);
 
         ArrayList<Event> events = new ArrayList<>();
         events.add(event1);
