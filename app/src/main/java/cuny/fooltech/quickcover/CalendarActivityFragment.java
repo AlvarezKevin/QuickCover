@@ -7,13 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.alamkanak.weekview.DateTimeInterpreter;
-import com.alamkanak.weekview.MonthLoader;
-import com.alamkanak.weekview.WeekView;
-import com.alamkanak.weekview.WeekViewEvent;
-import com.alamkanak.weekview.WeekViewLoader;
-
+import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -23,6 +17,11 @@ import java.util.List;
  */
 public class CalendarActivityFragment extends Fragment {
 
+    private static final String LOG_TAG = CalendarActivityFragment.class.getSimpleName();
+
+    private ListView mListView;
+    private ScheduleAdapter mAdapter;
+
     public CalendarActivityFragment() {
     }
 
@@ -31,6 +30,23 @@ public class CalendarActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
+
+        getActivity().setTitle("My Schedule");
+
+        Event event1 = new Event("John","Monday","3:00","6:00");
+        Event event2 = new Event("John","Tuesday","3:00","6:00");
+        Event event3 = new Event("John","Wednesday","3:00","6:00");
+        Event event4 = new Event("John","Thursday","3:00","6:00");
+
+        ArrayList<Event> events = new ArrayList<>();
+        events.add(event1);
+        events.add(event2);
+        events.add(event3);
+        events.add(event4);
+
+        mListView = (ListView)rootView.findViewById(R.id.schedule_listview);
+        mAdapter = new ScheduleAdapter(getActivity(),events);
+        mListView.setAdapter(mAdapter);
 
         return rootView;
 

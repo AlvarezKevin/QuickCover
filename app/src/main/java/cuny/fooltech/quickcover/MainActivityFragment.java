@@ -174,17 +174,17 @@ public class MainActivityFragment extends Fragment {
 
                 if (tag == null) {
                     //First add user only with no tags
-                    url = new URL("https://devtancrediapp1.mybluemix.net/postdata?name=" + username);
+                    url = new URL("https://devtancrediapp1.mybluemix.net/postusers?name=" + username);
                 } else if(tag.length == 1){
                     //If parameters include a tag change the url to include it
-                    url = new URL("https://devtancrediapp1.mybluemix.net/postdata?name=" +  username + "&tag1=" + tag[0]);
+                    url = new URL("https://devtancrediapp1.mybluemix.net/postusers?_id=users&name=" +  username + "&tag1=" + tag[0]);
                 } else if(tag.length == 2){
                     //If parameters include a tag change the url to include it
-                    url = new URL("https://devtancrediapp1.mybluemix.net/postdata?name=" +  username + "&tag1=" + tag[0]
+                    url = new URL("https://devtancrediapp1.mybluemix.net/postusers?_id=users&name=" +  username + "&tag1=" + tag[0]
                             + "&tag2=" + tag[1]);
                 } else if(tag.length > 2){
                     //If parameters include a tag change the url to include it
-                    url = new URL("https://devtancrediapp1.mybluemix.net/postdata?name=" +  username + "&tag1=" + tag[0]
+                    url = new URL("https://devtancrediapp1.mybluemix.net/postusers?_id=users&name=" +  username + "&tag1=" + tag[0]
                             + "&tag2=" + tag[1]
                             + "&tag3=" + tag[2]);
                 }

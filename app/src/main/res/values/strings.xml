@@ -5,10 +5,12 @@
     <string name="hint_name">What is your name?</string>
     <string name="enter_button">Enter</string>
     <string name="work_tags">Your work tags</string>
-    <string name="tags_hint">Enter your work tags, seperated by commas</string>
+    <string name="tags_hint">Enter your work tags, separated by commas</string>
     <string name="new_user">New User?</string>
     <string name="existing_user">Existing User?</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="title_activity_request">RequestActivity</string>
+    <string name="cancel">O</string>
+    <string name="button_o">O</string>
 </resources>
