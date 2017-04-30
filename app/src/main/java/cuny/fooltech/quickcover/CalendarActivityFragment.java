@@ -35,7 +35,7 @@ public class CalendarActivityFragment extends Fragment {
 
         int startingHour[] = new int[4];
 
-        startingHour[0]= 3;
+        startingHour[0]= 7;
         startingHour[1]= 6;
         startingHour[2]= 3;
         startingHour[3]= 3;
