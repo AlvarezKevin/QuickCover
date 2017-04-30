@@ -173,12 +173,17 @@ public class MainActivityFragment extends Fragment {
             InputStream inputStream = null;
 
             try {
-                URL url = new URL("http://quickcover.esy.es/create_product.php");
+                URL url = new URL("http://quickcover.esy.es/add_user.php");
 
                 Map<String,Object> params = new LinkedHashMap<>();
                 params.put("name", username);
-                params.put("var1", tag[0]);
-                params.put("var2", tag[1]);
+                params.put("position", tag[0]);
+                params.put("day",29 );
+                params.put("month", 4);
+                params.put("year_",2017);
+                params.put("start_time",4);
+                params.put("end_time",7);
+                params.put("need_cover",false);
 
                 StringBuilder postData = new StringBuilder();
                 for (Map.Entry<String,Object> param : params.entrySet()) {
