@@ -15,8 +15,9 @@ public class Event implements Serializable {
     private boolean needCover;
     private String position;
     private int year;
+    private  int pid;
 
-    public Event(String name, String position, int day, int month, int year, int startTime, int endTime, boolean needCover) {
+    public Event(int id,String name, String position, int day, int month, int year, int startTime, int endTime, boolean needCover) {
         this.name = name;
         this.day = day;
         this.startTime = startTime;
@@ -25,6 +26,15 @@ public class Event implements Serializable {
         this.needCover = needCover;
         this.position = position;
         this.year = year;
+        this.pid = id;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
     }
 
     public int getMonth() {

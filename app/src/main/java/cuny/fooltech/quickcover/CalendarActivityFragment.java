@@ -182,6 +182,7 @@ public class CalendarActivityFragment extends Fragment implements LoaderManager.
 
                     if (usersObject.getString("name").equals(mUsername)) {
 
+                        int id = usersObject.getInt("pid");
                         String name = usersObject.getString("name");
                         String position = usersObject.getString("position");
                         int day = usersObject.getInt("day");
@@ -196,7 +197,7 @@ public class CalendarActivityFragment extends Fragment implements LoaderManager.
                         }
                         Log.v(LOG_TAG, name + " " + position);
 
-                        Event event = new Event(name, position, day, month, year, startTime, endTime, cover);
+                        Event event = new Event(id,name, position, day, month, year, startTime, endTime, cover);
                         events.add(event);
                     }
 

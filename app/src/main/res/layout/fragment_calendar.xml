@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="cuny.fooltech.quickcover.CalendarActivityFragment"
-    tools:showIn="@layout/activity_calendar">
+    tools:showIn="@layout/activity_calendar"
+    android:background="@color/colorPrimary">
 
     <ListView
         android:layout_width="match_parent"
