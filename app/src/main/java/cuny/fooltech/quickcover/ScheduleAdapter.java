@@ -50,7 +50,7 @@ public class ScheduleAdapter extends ArrayAdapter<Event> {
 
 
         timeTV.setText(event.getStartTime() + " - " + event.getEndTime());
-        positionTV.setText(eventPosition);
+        positionTV.setText(event.getName() + " - " + eventPosition);
 
         switch (month) {
             case 1:
