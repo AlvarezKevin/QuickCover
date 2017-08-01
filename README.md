@@ -1,5 +1,5 @@
 # QuickCover
-Buisness scheduling app made for CUNY Hackathon 2016!
+Buisness scheduling app made for CUNY Hackathon 2017!
 
 ## Team Members 
 * Frank Tancredi
